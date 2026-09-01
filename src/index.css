@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --bg:#F5F2EA; --surface:#FDFCF8; --ink:#1F2D38; --primary:#31587A; --primary-deep:#1E3A52;
+  --bg:#F5F2EA; --surface:#FDFCF8; --ink:#1F2D38; --primary:#2B4C6F; --primary-deep:#1A3652;
   --secondary:#8CA3B4; --muted:#54707F; --line:#DFD9CA; --line-strong:#C9C1AD;
-  --accent:#BF5B2B; --accent-dark:#9E4A20; --band:#1E3A52; --band-ink:#EFEADC;
+  --accent:#D2B53C; --accent-dark:#B89A26; --band:#1A3652; --band-ink:#EFEADC;
 }
 :root[data-theme="dark"] {
   --bg:#0F1A24; --surface:#172635; --ink:#E9E4D6; --primary:#7FAFD9; --primary-deep:#A8CBE8;
   --secondary:#4A6478; --muted:#A0B4C2; --line:#263A4C; --line-strong:#33495D;
-  --accent:#CE6B33; --accent-dark:#DA7F49; --band:#172635; --band-ink:#E9E4D6;
+  --accent:#D9BC45; --accent-dark:#E3CA5F; --band:#172635; --band-ink:#E9E4D6;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg:#0F1A24; --surface:#172635; --ink:#E9E4D6; --primary:#7FAFD9; --primary-deep:#A8CBE8;
     --secondary:#4A6478; --muted:#A0B4C2; --line:#263A4C; --line-strong:#33495D;
-    --accent:#CE6B33; --accent-dark:#DA7F49; --band:#172635; --band-ink:#E9E4D6;
+    --accent:#D9BC45; --accent-dark:#E3CA5F; --band:#172635; --band-ink:#E9E4D6;
   }
 }
 

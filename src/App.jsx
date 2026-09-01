@@ -4,13 +4,17 @@ import BlueprintBg from './components/BlueprintBg.jsx';
 import FlowDiagram from './components/FlowDiagram.jsx';
 import BidMockup from './components/BidMockup.jsx';
 
-const CTA = ({ size = 'lg' }) => (
-  <button onClick={bookCall}
-    className={'font-heading font-semibold bg-accent text-[#FFF8F2] text-left cursor-pointer transition-colors duration-150 hover:bg-accentdark ' +
-      (size === 'lg' ? 'text-[17px] px-9 h-[52px]' : 'text-[15px] px-[22px] h-11')}>
-    Book a call
-  </button>
+const CTA = ({ size = 'lg', note }) => (
+  <>
+    <button onClick={bookCall}
+      className={'font-heading font-semibold bg-accent text-[#1F2D38] text-left cursor-pointer transition-colors duration-150 hover:bg-accentdark ' +
+        (size === 'lg' ? 'text-[17px] px-9 h-[52px]' : 'text-[15px] px-[22px] h-11')}>
+      Book a call
+    </button>
+    {note && <p className="m-0 mt-[-20px] text-[14px] text-muted">{note}</p>}
+  </>
 );
+const CTA_NOTE = 'Thirty minutes with the founding team in Texas, not a sales rep.';
 
 const Kicker = ({ children }) => (
   <div className="font-heading text-[13px] tracking-[0.12em] uppercase text-muted">{children}</div>
@@ -60,6 +64,48 @@ const pillars = [
   { icon: 'print', title: 'Fine print, flagged', body: 'Scope-shifting notes like millwork by owner surface before they cost margin.' },
   { icon: 'sheet', title: 'Your spreadsheet, untouched', body: 'Drafts land in your own template, your columns, nothing re-typed.' },
 ];
+const segments = ['Convenience stores', 'Restaurants', 'Retail chains', 'Bank branches', 'Apartments', 'Grocery', 'Pharmacies', 'Medical clinics'];
+const mathRow1 = [
+  ['Today', '75 bids', 'a week, one hour each'],
+  ['Time spent', '75 hours', 'of estimating, every week'],
+  ['With ProjectX', '12.5 hours', 'at ten minutes a bid, reviewed and approved'],
+];
+const trustIcons = {
+  lock: (
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" className="text-primary">
+      <rect x="5" y="13" width="20" height="14" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M9 13 V9 a6 6 0 0 1 12 0 V13" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="15" cy="20" r="2" fill="var(--accent)" />
+    </svg>
+  ),
+  pooled: (
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" className="text-primary">
+      <circle cx="11" cy="15" r="7" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="19" cy="15" r="7" fill="none" stroke="currentColor" strokeWidth="1.4" opacity="0.5" />
+      <path d="M4 26 L26 4" stroke="var(--accent)" strokeWidth="1.8" />
+    </svg>
+  ),
+  shield: (
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" className="text-primary">
+      <path d="M15 3 L26 7 V15 C26 21 21 25.5 15 27 C9 25.5 4 21 4 15 V7 Z" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M10 15 l3.5 3.5 l7 -7" fill="none" stroke="var(--accent)" strokeWidth="1.8" />
+    </svg>
+  ),
+  doc: (
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" className="text-primary">
+      <path d="M7 3 H19 L24 8 V27 H7 Z" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M19 3 V8 H24" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M11 13 H20 M11 17 H20" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+      <path d="M11 22 H17" stroke="var(--accent)" strokeWidth="2" />
+    </svg>
+  ),
+};
+const trust = [
+  { icon: 'lock', title: 'Private by design', body: 'Your Bid Memory belongs to your firm alone. No one else can see it or search it.' },
+  { icon: 'pooled', title: 'Never pooled', body: 'Your pricing never trains a shared model and never reaches another contractor.' },
+  { icon: 'shield', title: 'Encrypted', body: 'Files are encrypted in transit and at rest, with access limited to your account.' },
+  { icon: 'doc', title: 'NDA on request', body: 'We will sign your NDA before the first file moves.' },
+];
 const whoFor = [
   ['A', 'Retail general contractors between 3M and 50M in revenue'],
   ['B', 'Firms bidding brand prototypes and franchise rollouts across locations'],
@@ -74,6 +120,7 @@ const steps = [
 const different = [
   'Built only for retail construction, not a general tool stretched across every trade.',
   'It remembers your jobs. Other software starts every project from a blank page.',
+  'Duplicating an old quote still leaves the hunt for what changed. ProjectX finds the differences and prices only those.',
   'Human verified, always. The machine does the counting, your estimator makes the call.',
 ];
 const faqs = [
@@ -124,20 +171,28 @@ export default function App() {
           <div className="flex flex-col items-start gap-7 max-w-[65ch]">
             <div className="flex items-center gap-3 font-heading font-semibold text-[13px] tracking-[0.12em] uppercase text-muted">
               <span className="w-8 h-px bg-accent inline-block" />
-              Estimating, from memory
+              Price bids in hours, not days
             </div>
             <h1 className="m-0 font-heading font-semibold text-[clamp(36px,4.6vw,58px)] leading-[1.08] tracking-[-0.025em] [text-wrap:pretty]">
-              Price Bids in Hours, Not Days
+              The Estimating Platform for Repeat Retail Construction
             </h1>
-            <p className="m-0 text-[21px] leading-[1.55] text-muted max-w-[50ch]">
-              For retail contractors who bid the same brands again and again. Your past bids become your next draft, ready to review.
+            <ul className="m-0 p-0 list-none flex flex-wrap gap-2">
+              {segments.map((seg) => (
+                <li key={seg}
+                  className="px-4 py-[6px] border border-linestrong rounded-full bg-surface font-heading font-semibold text-[12.5px] uppercase tracking-[0.08em] text-primary">
+                  {seg}
+                </li>
+              ))}
+            </ul>
+            <p className="m-0 text-[20px] leading-[1.55] text-muted max-w-[52ch]">
+              Slow bids lose to faster competitors. Your best estimators spend the week counting, not building. All of those hours are money. ProjectX turns your past bids into the next draft, ready to review.
             </p>
             <CTA />
             <p className="m-0 text-[15px] text-muted flex items-center gap-[10px]">
               <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="text-accent shrink-0">
                 <path d="M2 14 L8 2 L14 14 Z M5 14 V9 H11 V14" fill="none" stroke="currentColor" strokeWidth="1.3" />
               </svg>
-              Built hands-on with a Texas retail general contractor.
+              Built hands-on with a Texas retail general contractor. Your call is with the founding team, not a sales rep.
             </p>
           </div>
           <BidMockup />
@@ -163,7 +218,7 @@ export default function App() {
         <Wrap className="py-20 flex flex-col items-start gap-9">
           <div className="flex flex-col gap-4">
             <Kicker>02 / Outcomes</Kicker>
-            <H2>The week, back in <span className="border-b-[3px] border-accent">hours</span></H2>
+            <H2>Days of estimating become <span className="border-b-[3px] border-accent">hours</span></H2>
           </div>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 w-full">
             {pillars.map((p) => (
@@ -174,14 +229,52 @@ export default function App() {
               </div>
             ))}
           </div>
-          <CTA />
+          <CTA note={CTA_NOTE} />
+        </Wrap>
+      </section>
+
+      <section className="border-b border-linestrong">
+        <Wrap className="py-20 flex flex-col items-start gap-9">
+          <div className="flex flex-col gap-4">
+            <Kicker>03 / The math</Kicker>
+            <H2>Do the math</H2>
+          </div>
+          <div className="w-full bg-surface border border-linestrong">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] border-b border-linestrong">
+              {mathRow1.map(([label, num, caption], i) => (
+                <div key={label} className={'p-6 flex flex-col gap-2' + (i < mathRow1.length - 1 ? ' border-r border-line' : '')}>
+                  <span className="font-heading font-semibold text-[12px] uppercase tracking-[0.12em] text-muted">{label}</span>
+                  <span className="font-heading font-semibold text-[clamp(26px,3vw,40px)] leading-[1.1] tabular-nums text-ink">{num}</span>
+                  <span className="text-[15px] text-muted">{caption}</span>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
+              <div className="p-6 flex flex-col gap-2 border-r border-line">
+                <span className="font-heading font-semibold text-[12px] uppercase tracking-[0.12em] text-muted">You save every week</span>
+                <span className="font-heading font-semibold text-[clamp(34px,4vw,54px)] leading-[1.1] tabular-nums text-ink">
+                  62<span className="text-[0.5em] font-medium text-muted"> hours, more than 7 working days</span>
+                </span>
+              </div>
+              <div className="p-6 flex flex-col gap-2">
+                <span className="font-heading font-semibold text-[12px] uppercase tracking-[0.12em] text-muted">You save every year</span>
+                <span className="font-heading font-semibold text-[clamp(34px,4vw,54px)] leading-[1.1] tabular-nums text-ink">
+                  <span className="text-deep border-b-[3px] border-accent">$180,000</span>
+                  <span className="text-[0.5em] font-medium text-muted"> of estimating salary</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <p className="m-0 text-[14px] text-muted max-w-[65ch]">
+            Conservative math. One hour per repeat bid today, ten minutes with ProjectX, valued at $60 an hour over 48 weeks. Your bid volume sets the real number.
+          </p>
         </Wrap>
       </section>
 
       <section className="border-b border-linestrong">
         <Wrap className="py-20 flex flex-col items-start gap-11">
           <div className="flex flex-col gap-4">
-            <Kicker>03 / Process</Kicker>
+            <Kicker>04 / Process</Kicker>
             <H2>How it works</H2>
           </div>
           <FlowDiagram />
@@ -196,14 +289,14 @@ export default function App() {
               </li>
             ))}
           </ol>
-          <CTA />
+          <CTA note={CTA_NOTE} />
         </Wrap>
       </section>
 
       <section className="border-b border-linestrong">
         <Wrap className="py-20 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-12">
           <div className="flex flex-col gap-4">
-            <Kicker>04 / Position</Kicker>
+            <Kicker>05 / Position</Kicker>
             <H2>Why it is different</H2>
           </div>
           <ul className="m-0 p-0 list-none flex flex-col max-w-[65ch]">
@@ -215,9 +308,25 @@ export default function App() {
       </section>
 
       <section className="border-b border-linestrong">
+        <Wrap className="py-20">
+          <div className="mb-4"><Kicker>06 / Trust</Kicker></div>
+          <div className="mb-9"><H2>Your numbers stay yours</H2></div>
+          <ul className="m-0 p-0 list-none grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] border-t border-l border-linestrong">
+            {trust.map((t) => (
+              <li key={t.title} className="border-r border-b border-linestrong p-6 flex flex-col gap-3">
+                {trustIcons[t.icon]}
+                <h3 className="m-0 font-heading font-semibold text-[18px]">{t.title}</h3>
+                <p className="m-0 text-[15.5px] text-muted">{t.body}</p>
+              </li>
+            ))}
+          </ul>
+        </Wrap>
+      </section>
+
+      <section className="border-b border-linestrong">
         <Wrap className="py-20 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-12">
           <div className="flex flex-col gap-4 items-start">
-            <Kicker>05 / Questions</Kicker>
+            <Kicker>07 / Questions</Kicker>
             <H2>Questions, answered</H2>
           </div>
           <div className="border-t border-linestrong">
@@ -241,6 +350,7 @@ export default function App() {
             In your first month, your bid history becomes an asset instead of a filing problem. Repeat-brand bids come back in hours. Revisions stop eating evenings. Fine print gets caught before it costs you. Your estimator reviews and decides, and the week goes back to customers, crews, and the next job.
           </p>
           <CTA />
+          <p className="m-0 -mt-3 text-[15px] opacity-[.85]">Thirty minutes with the team that built it, from Texas. No demo reel, no handoff.</p>
         </Wrap>
       </section>
 
